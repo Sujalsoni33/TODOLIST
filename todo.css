@@ -95,8 +95,8 @@ body {
   .finished-item {
     padding: 8px;
     border-radius: 5px;
-    background-color: #28a745; /* Example finished task background color */
-    color: #fff; /* Example finished task text color */
+    background-color: #28a745; 
+    color: #fff; 
     margin-bottom: 10px;
   }
   
