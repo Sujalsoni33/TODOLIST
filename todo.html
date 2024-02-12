@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="todo.css">
+</head>
+<body>
+    <div id="app">
+        <div class="todo-container">
+            <h2 id="head">Todo List</h2>
+            <div class="add-todo">
+                <input type="text" v-model="newTodo" placeholder="Add new todo">
+                <button class="btn submit-btn" @click="addTodo">Add Task</button>
+            </div>
+            <div v-for="(todo, index) in todos" :key="index" class="todo-item">
+                <input type="checkbox" v-model="todo.completed" @change="updateTodoStatus(todo, index)">
+                <span :class="{ 'completed': todo.completed }">{{ todo.text }}</span>
+                <button class="btn remove-btn" @click="removeTodo(index)">Remove Task</button>
+            </div>
+            <button class="btn remove-all-btn" @click="removeAllTodos">Remove All Task</button>
+        </div>
+
+        <div class="finished-container">
+            <h2>Finished Tasks</h2>
+            <div v-for="(finishedTodo, index) in finishedTodos" :key="index" class="finished-item">
+                <span>{{ finishedTodo.text }}</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <script>
+        const { createApp, ref } = Vue;
+
+        createApp({
+            setup() {
+                const newTodo = ref("");
+                const todos = ref([]);
+                const finishedTodos = ref([]);
+
+                const addTodo = () => {
+                    if (newTodo.value.trim() !== "") {
+                        todos.value.push({ text: newTodo.value, completed: false });
+                        saveTodos();
+                        newTodo.value = "";
+                    }
+                };
+
+                const removeTodo = (index) => {
+                    todos.value.splice(index, 1);
+                    saveTodos();
+                };
+
+                const removeAllTodos = () => {
+                    todos.value = [];
+                    saveTodos();
+                };
+
+                const updateTodoStatus = (todo, index) => {
+                    if (todo.completed) {
+                        // Move the completed todo to finishedTodos
+                        const completedTodo = todos.value.splice(index, 1)[0];
+                        finishedTodos.value.push(completedTodo);
+                    } else {
+                        // Move the uncompleted todo back to todos
+                        const unfinishedTodo = finishedTodos.value.splice(index, 1)[0];
+                        todos.value.push(unfinishedTodo);
+                    }
+                    saveTodos();
+                };
+
+                const saveTodos = () => {
+                    localStorage.setItem("todos", JSON.stringify(todos.value));
+                    localStorage.setItem("finishedTodos", JSON.stringify(finishedTodos.value));
+                };
+
+                const loadTodos = () => {
+                    const savedTodos = localStorage.getItem("todos");
+                    if (savedTodos) {
+                        todos.value = JSON.parse(savedTodos);
+                    } else {
+                        todos.value = [];
+                    }
+                    const savedFinishedTodos = localStorage.getItem("finishedTodos");
+                    if (savedFinishedTodos) {
+                        finishedTodos.value = JSON.parse(savedFinishedTodos);
+                    } else {
+                        finishedTodos.value = [];
+                    }
+                };
+
+                loadTodos();
+
+                return {
+                    newTodo,
+                    todos,
+                    finishedTodos,
+                    addTodo,
+                    removeTodo,
+                    removeAllTodos,
+                    updateTodoStatus,
+                };
+            },
+        }).mount("#app");
+    </script>
+</body>
+</html>

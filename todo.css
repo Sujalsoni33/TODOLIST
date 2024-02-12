@@ -1,0 +1,102 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+  }
+  
+  .todo-container {
+    max-height: 80vh; 
+    overflow-y: auto; 
+    width: 600px;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  #head {
+    margin-left: 250px;
+  }
+  
+  .todo-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 13px;
+    padding: 8px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .todo-item input[type="checkbox"] {
+    margin-right: 15px;
+  }
+  
+  .todo-item .remove-btn {
+    margin-left: auto;
+    background-color: #dc3545;
+  }
+  
+  .btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .add-todo {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .add-todo input[type="text"] {
+    flex: 1;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+  }
+  
+  .add-todo .submit-btn {
+    background-color: #28a745;
+  }
+  
+  .add-todo .submit-btn:hover {
+    background-color: #218838;
+  }
+  
+  .remove-all-btn {
+    margin-top: 10px;
+    background-color: #dc3545;
+  }
+  
+  .remove-all-btn:hover {
+    background-color: #c82333;
+  }
+  
+  .finished-container {
+    margin-top: 30px;
+  }
+  
+  .finished-container h2 {
+    margin-bottom: 10px;
+  }
+  
+  .finished-item {
+    padding: 8px;
+    border-radius: 5px;
+    background-color: #28a745; /* Example finished task background color */
+    color: #fff; /* Example finished task text color */
+    margin-bottom: 10px;
+  }
+  
